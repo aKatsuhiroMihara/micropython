@@ -37,6 +37,9 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <signal.h>
+/* workaround for R2100 */
+#include <time.h>
+#include <syslog.h>
 
 #include "py/compile.h"
 #include "py/runtime.h"
@@ -424,6 +427,23 @@ STATIC void set_sys_argv(char *argv[], int argc, int start_arg) {
 MP_NOINLINE int main_(int argc, char **argv);
 
 int main(int argc, char **argv) {
+  /* workaround for R2100 */
+  {
+    struct tm tm;
+    bool ntp_enabled = false;
+
+    while (!ntp_enabled) {
+      time_t t = time(NULL);
+      localtime_r(&t, &tm);
+      ntp_enabled = (tm.tm_year) > 120;
+      syslog(LOG_DEBUG, "pm date %04d/%02d/%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
+      syslog(LOG_DEBUG, "pm ntp_enabled %d", ntp_enabled);
+      sleep(1);
+    }
+    syslog(LOG_DEBUG, "pm start normal main()");
+  }
+
+  
     #if MICROPY_PY_THREAD
     mp_thread_init();
     #endif
