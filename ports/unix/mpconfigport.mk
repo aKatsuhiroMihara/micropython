@@ -15,19 +15,19 @@ MICROPY_PY_BTREE = 0
 MICROPY_PY_THREAD = 1
 
 # Subset of CPython termios module
-MICROPY_PY_TERMIOS = 1
+MICROPY_PY_TERMIOS = 0
 
 # Subset of CPython socket module
-MICROPY_PY_SOCKET = 1
+MICROPY_PY_SOCKET = 0
 
 # ffi module requires libffi (libffi-dev Debian package)
 MICROPY_PY_FFI = 0
 
 # ussl module requires one of the TLS libraries below
-MICROPY_PY_USSL = 1
+MICROPY_PY_USSL = 0
 # axTLS has minimal size but implements only a subset of modern TLS
 # functionality, so may have problems with some servers.
-MICROPY_SSL_AXTLS = 1
+MICROPY_SSL_AXTLS = 0
 # mbedTLS is more up to date and complete implementation, but also
 # more bloated.
 MICROPY_SSL_MBEDTLS = 0
