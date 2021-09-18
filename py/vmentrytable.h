@@ -30,10 +30,10 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Winitializer-overrides"
 #endif // __clang__
-#if __GNUC__ >= 5
+#if __GNUC__ >= 4
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Woverride-init"
-#endif // __GNUC__ >= 5
+#endif // __GNUC__ >= 4
 
 static const void *const entry_table[256] = {
     [0 ... 255] = &&entry_default,
