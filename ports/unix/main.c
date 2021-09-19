@@ -440,6 +440,8 @@ int main(int argc, char **argv) {
       syslog(LOG_DEBUG, "pm ntp_enabled %d", ntp_enabled);
       sleep(1);
     }
+    syslog(LOG_DEBUG, "pm sleep(30)");
+    sleep(30);
     syslog(LOG_DEBUG, "pm start normal main()");
   }
 
