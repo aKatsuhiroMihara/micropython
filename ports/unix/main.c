@@ -428,6 +428,7 @@ MP_NOINLINE int main_(int argc, char **argv);
 
 int main(int argc, char **argv) {
   /* workaround for R2100 */
+#ifndef DEBUG
   {
     struct tm tm;
     bool ntp_enabled = false;
@@ -444,6 +445,7 @@ int main(int argc, char **argv) {
     sleep(30);
     syslog(LOG_DEBUG, "pm start normal main()");
   }
+#endif
 
   
     #if MICROPY_PY_THREAD
