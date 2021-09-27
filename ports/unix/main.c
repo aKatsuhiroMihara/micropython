@@ -432,6 +432,7 @@ int main(int argc, char **argv) {
   {
     struct tm tm;
     bool ntp_enabled = false;
+    bool shold_sleep = false;
 
     while (!ntp_enabled) {
       time_t t = time(NULL);
@@ -439,10 +440,15 @@ int main(int argc, char **argv) {
       ntp_enabled = (tm.tm_year) > 120;
       syslog(LOG_DEBUG, "pm date %04d/%02d/%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
       syslog(LOG_DEBUG, "pm ntp_enabled %d", ntp_enabled);
-      sleep(1);
+      if (!ntp_enabled) {
+        sleep(1);
+        shold_sleep = true;
+      }
     }
-    syslog(LOG_DEBUG, "pm sleep(30)");
-    sleep(30);
+    if (shold_sleep) {
+        syslog(LOG_DEBUG, "pm sleep(30)");
+        sleep(30);
+    }
     syslog(LOG_DEBUG, "pm start normal main()");
   }
 #endif
